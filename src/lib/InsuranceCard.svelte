@@ -6,11 +6,15 @@
   let flipped = $state(false);
 
   const fmt = (v: string | number | undefined, fallback = '') => v ?? fallback;
+
   const fmtDate = (v: string | undefined) => {
     if (!v) return 'MM/DD/YYYY';
     const d = new Date(v);
     return (d.getMonth() + 1).toString().padStart(2, '0') + '/' + d.getDate().toString().padStart(2, '0') + '/' + d.getFullYear();
   };
+
+  const cardEffDate = $derived(data.effectiveDate);
+  const cardExpDate = $derived(data.expirationDate);
 
   const veh = $derived(data.vehicles?.[0] ?? {
     year: data.vehYear,
@@ -37,7 +41,7 @@
           {:else}
             <svg viewBox="0 0 40 40" width="36" height="36" xmlns="http://www.w3.org/2000/svg">
               <circle cx="20" cy="20" r="19" fill={agency.primaryColor} stroke={agency.darkColor} stroke-width="1.5"/>
-              <text x="20" y={agency.letter.length > 1 ? '26' : '29'} font-family="Arial Black,Arial" font-size={agency.letter.length > 1 ? '14' : '22'} font-weight="900" fill="white" text-anchor="middle">{agency.letter}</text>
+              <text x="20" y="28" font-family="Arial Black,Arial" font-size="18" font-weight="900" fill="white" text-anchor="middle">{agency.letter}</text>
             </svg>
           {/if}
           <div class="header-text">
@@ -53,9 +57,9 @@
           </div>
           <div class="info-row">
             <span class="info-label">Effective</span>
-            <span class="info-value">{fmtDate(data.effectiveDate)}</span>
+            <span class="info-value">{fmtDate(cardEffDate)}</span>
             <span class="info-label" style="margin-left:10px">Expires</span>
-            <span class="info-value">{fmtDate(data.expirationDate)}</span>
+            <span class="info-value">{fmtDate(cardExpDate)}</span>
           </div>
           <div class="info-row">
             <span class="info-label">Insured</span>

@@ -31,7 +31,7 @@
         {:else}
           <svg viewBox="0 0 60 60" width="60" height="60" xmlns="http://www.w3.org/2000/svg">
             <circle cx="30" cy="30" r="28" fill={agency.primaryColor} stroke={agency.darkColor} stroke-width="2"/>
-            <text x="30" y={agency.letter.length > 1 ? '38' : '42'} font-family="Arial Black,Arial" font-size={agency.letter.length > 1 ? '20' : '32'} font-weight="900" fill="white" text-anchor="middle">{agency.letter}</text>
+            <text x="30" y="38" font-family="Arial Black,Arial" font-size="26" font-weight="900" fill="white" text-anchor="middle">{agency.letter}</text>
           </svg>
         {/if}
       </div>

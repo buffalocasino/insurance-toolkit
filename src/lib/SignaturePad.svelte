@@ -61,6 +61,7 @@
   }
 
   async function autoSign(fontFamily?: string) {
+    if (!autoName) return; // nothing to sign
     initCtx();
     const font = fontFamily ?? selectedFont;
     await generateSignature(ctx!, autoName || label, canvas.width, canvas.height, font);
