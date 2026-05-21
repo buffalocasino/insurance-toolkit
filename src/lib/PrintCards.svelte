@@ -713,19 +713,19 @@
   }
   .cov-code {
     font-weight: 900;
-    font-size: 6px;
+    font-size: 5px;
     font-family: 'Arial Black', Arial, sans-serif;
     background: var(--brand);
     color: white;
-    padding: 0 2px;
+    padding: 0 1px;
     border-radius: 2px;
-    height: 9px;
+    height: 7px;
     display: inline-flex;
     align-items: center;
   }
   .cov-label {
     font-weight: 600;
-    font-size: 5.5px;
+    font-size: 4.5px;
     color: #333;
   }
 
@@ -923,23 +923,17 @@
     align-items: baseline;
     gap: 2px;
   }
-  .leg-code {
-    font-size: 6px;
+.leg-code {
+    font-size: 5px;
     font-weight: 900;
     color: white;
     background: var(--brand-dark);
     border-radius: 2px;
-    padding: 0 2px;
-    min-width: 14px;
+    padding: 0 1px;
+    min-width: 12px;
     text-align: center;
     flex-shrink: 0;
     line-height: 1.2;
-    font-family: 'Arial Black', Arial, sans-serif;
-    box-sizing: border-box;
-    height: 9px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
   .leg-label {
     font-size: 5px;
