@@ -4,12 +4,17 @@
   let { data, agency }: Props = $props();
 
   const fmt = (v: string | number | undefined, fallback = '') => v ?? fallback;
+
   const fmtDate = (v: string | undefined) => {
     if (!v) return 'MM/DD/YYYY';
     const d = new Date(v);
     return (d.getMonth()+1).toString().padStart(2,'0') + '/' +
            d.getDate().toString().padStart(2,'0') + '/' + d.getFullYear();
   };
+
+  // Derived so card updates when form changes
+  const cardEffDate = $derived(data.effectiveDate);
+  const cardExpDate = $derived(data.expirationDate);
   const veh1 = $derived(data.vehicles?.[0] ?? { year: data.vehYear, make: data.vehMake, model: data.vehModel, vin: data.vehVin });
   const veh2 = $derived(data.vehicles?.[1] ?? null);
 
@@ -308,11 +313,11 @@
             </div>
             <div class="field-row">
               <span class="fl">Effective</span>
-              <span class="fv">{fmtDate(data.effectiveDate)}</span>
+              <span class="fv">{fmtDate(cardEffDate)}</span>
             </div>
             <div class="field-row">
               <span class="fl">Expires</span>
-              <span class="fv">{fmtDate(data.expirationDate)}</span>
+              <span class="fv">{fmtDate(cardExpDate)}</span>
             </div>
             <div class="field-row">
               <span class="fl">Insured</span>
