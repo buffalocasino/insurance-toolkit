@@ -132,16 +132,26 @@
   @media print {
     .screen-only { display: none !important; }
     .cards-page {
-      padding: 0.45in 0.6in;
+      padding: 0.4in 0.5in;
       page-break-inside: avoid;
       break-inside: avoid;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      margin: 0;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      color-adjust: exact;
     }
     .card-pair {
       page-break-inside: avoid;
       break-inside: avoid;
+      justify-content: center;
     }
-    /* Remove screen chrome */
-    .cards-page { border: none; border-radius: 0; box-shadow: none; margin: 0; }
+    /* Slightly narrower cards so two fit on any device */
+    .id-card { width: 3.1in; flex-shrink: 0; }
+    .fold-line { margin: 0 3px; }
+    .cut-line { margin: 6px 0; }
   }
 
   .cards-page {

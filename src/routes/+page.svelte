@@ -476,10 +476,11 @@
   {#if activeTab === 'print'}
   <main class="preview-main">
     <div class="preview-toolbar">
-      <p class="preview-note">📺 Preview below — use Ctrl+P / Cmd+P to print, or click the button.</p>
+      <p class="preview-note">📺 Preview below — <strong>Print</strong> sends to your printer · <strong>Save as PDF</strong> opens the print dialog, then choose "Save as PDF" as destination</p>
       <div class="preview-btns">
         <button class="btn-back" onclick={() => activeTab = 'form'}>← Back to Form</button>
-        <button class="btn-print" style="background:{agency.primaryColor}" onclick={printDocs}>🖨️ Print Declaration + ID Card</button>
+        <button class="btn-print" style="background:{agency.primaryColor}" onclick={printDocs}>🖨️ Print</button>
+        <button class="btn-pdf" style="border-color:{agency.primaryColor};color:{agency.primaryColor}" onclick={printDocs}>📄 Save as PDF</button>
       </div>
     </div>
     <div class="preview-scroll">
@@ -503,12 +504,16 @@
 
 <style>
   @media print {
-    /* margin:0 removes browser's URL/date header from print */
-    @page { size: letter; margin: 0; }
+    @page { size: letter portrait; margin: 0; }
     :global(.ui-wrapper) { display: none !important; }
-    :global(.print-only) { display: block !important; }
+    :global(.print-only) {
+      display: block !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      color-adjust: exact;
+    }
     :global(.print-decl) {
-      padding: 0.38in 0.42in;
+      padding: 0.3in 0.35in;
       page-break-after: always;
       break-after: page;
       page-break-inside: avoid;
@@ -800,6 +805,17 @@
     transition: opacity 0.15s;
   }
   .btn-print:hover { opacity: 0.88; }
+  .btn-pdf {
+    padding: 10px 18px;
+    border: 2px solid;
+    border-radius: 7px;
+    background: white;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .btn-pdf:hover { opacity: 0.75; }
   .preview-scroll { width: 100%; max-width: 900px; }
   .card-preview-row {
     display: flex;
