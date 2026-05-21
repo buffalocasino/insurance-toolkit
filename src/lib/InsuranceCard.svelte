@@ -94,7 +94,7 @@
           {:else}
             <svg viewBox="0 0 40 40" width="28" height="28" xmlns="http://www.w3.org/2000/svg">
               <circle cx="20" cy="20" r="19" fill={agency.darkColor} stroke={agency.darkColor} stroke-width="1.5"/>
-              <text x="20" y={agency.letter.length > 1 ? '26' : '29'} font-family="Arial Black,Arial" font-size={agency.letter.length > 1 ? '14' : '22'} font-weight="900" fill="white" text-anchor="middle">{agency.letter}</text>
+              <text x="20" y="28" font-family="Arial Black,Arial" font-size="18" font-weight="900" fill="white" text-anchor="middle">{agency.letter}</text>
             </svg>
           {/if}
           <div class="misrep-warning">
