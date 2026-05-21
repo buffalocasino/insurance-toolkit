@@ -2,6 +2,7 @@
   import type { Agency } from './agencies.js';
   import SignaturePad from './SignaturePad.svelte';
   interface Props { data: any; agency: Agency; }
+  // NAIC is on the data object
   let { data, agency }: Props = $props();
 
   const fmt = (v: string | number | undefined, fallback = '') => v ?? fallback;
@@ -251,6 +252,14 @@
         <div class="field">{fmt(data.policyState)}</div>
       </div>
     </div>
+    <div class="row two-col">
+      <div>
+        <label>NAIC Number</label>
+        <div class="field">{fmt(data.naicNumber)}</div>
+      </div>
+      <div>
+      </div>
+    </div>
   </div>
 
   <div class="signatures">
@@ -277,11 +286,12 @@
   @media print {
     .page {
       padding: 0;
-      font-size: 8px;
+      font-size: 7.5px;
       line-height: 1.2;
       border: none;
-      max-width: none;
-      width: 100%;
+      /* Force full letter-content width so narrow mobile viewports don't reflow */
+      width: 7.8in !important;
+      max-width: 7.8in !important;
       box-sizing: border-box;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;

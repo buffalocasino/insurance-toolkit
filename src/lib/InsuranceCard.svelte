@@ -84,59 +84,44 @@
 
       <!-- ── BACK ── -->
       <div class="flip-face back" style="--brand:{agency.primaryColor};--brand-dark:{agency.darkColor};--brand-light:{agency.lightBg}">
-        <div class="card-header" style="background:var(--brand-dark)">
+        <div class="card-header back-header">
           {#if agency.logo}
-            <div class="logo-box"><img src="/logos/{agency.logo}" alt={agency.shortName} class="logo-img" /></div>
+            <div class="logo-box logo-box-sm"><img src="/logos/{agency.logo}" alt={agency.shortName} class="logo-img" /></div>
           {:else}
-            <svg viewBox="0 0 40 40" width="36" height="36" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 40 40" width="28" height="28" xmlns="http://www.w3.org/2000/svg">
               <circle cx="20" cy="20" r="19" fill={agency.darkColor} stroke={agency.darkColor} stroke-width="1.5"/>
               <text x="20" y={agency.letter.length > 1 ? '26' : '29'} font-family="Arial Black,Arial" font-size={agency.letter.length > 1 ? '14' : '22'} font-weight="900" fill="white" text-anchor="middle">{agency.letter}</text>
             </svg>
           {/if}
-          <div class="header-text">
-            <strong>{agency.name}</strong>
-            <small>South Dakota — In Case of Accident</small>
+          <div class="misrep-warning">
+            MISREPRESENTATION OF INSURANCE IS A FIRST DEGREE MISDEMEANOR
           </div>
         </div>
 
         <div class="card-body back-body">
-          <div class="back-section">
-            <div class="back-heading">IN CASE OF ACCIDENT</div>
-            <ol class="back-steps">
-              <li>Check for injuries — call <strong>911</strong> immediately if anyone is hurt.</li>
-              <li>Move vehicles to safety if possible; turn on hazard lights.</li>
-              <li>Exchange information with all drivers involved.</li>
-              <li>Document the scene — photos of damage, plates, and location.</li>
-              <li>Do <strong>not</strong> admit fault or sign any statements at the scene.</li>
-              <li>Report the accident to your agent within 24 hours.</li>
-            </ol>
-          </div>
-
-          <div class="back-section">
-            <div class="back-heading">EXCHANGE THIS INFORMATION</div>
-            <div class="back-exchange">
-              <span>Name &amp; address</span>
-              <span>Driver's license #</span>
-              <span>License plate #</span>
-              <span>Insurance company &amp; policy #</span>
-            </div>
-          </div>
-
-          <div class="back-section">
-            <div class="back-heading">SD MINIMUM LIABILITY (SDCL 32-35)</div>
-            <div class="back-limits">
-              <span class="lim-label">Bodily Injury</span><span class="lim-val">$25,000 / person · $50,000 / accident</span>
-              <span class="lim-label">Property Damage</span><span class="lim-val">$25,000 / accident</span>
-            </div>
+          <div class="symbol-intro">How to identify your coverage — See policy for full name and definition</div>
+          <div class="symbol-grid">
+            <div class="sym"><b>A</b> Bodily Injury Liability</div>
+            <div class="sym"><b>B</b> Property Damage Liability</div>
+            <div class="sym"><b>C</b> Medical Payments</div>
+            <div class="sym"><b>D</b> Comprehensive</div>
+            <div class="sym"><b>G</b> Collision</div>
+            <div class="sym"><b>H</b> Emergency Road Service</div>
+            <div class="sym"><b>P</b> No-Fault</div>
+            <div class="sym"><b>R1</b> Car Rental &amp; Travel Expenses</div>
+            <div class="sym"><b>S</b> Death, Dismemberment &amp; Loss of Sight</div>
+            <div class="sym"><b>U</b> Uninsured Motor Vehicle</div>
+            <div class="sym"><b>U3</b> Uninsured Motor Vehicle Nonstacked</div>
+            <div class="sym"><b>ONOC</b> Use of Nonowned Cars</div>
           </div>
         </div>
 
         <div class="card-footer">
           <div class="agent-info" style="font-size:8px">
-            Report claims: <strong>{agency.claimsPhone}</strong> · {agency.website}
+            Claims: <strong>{agency.claimsPhone}</strong> · {agency.website}
           </div>
           <button class="flip-btn" onclick={() => flipped = false} style="color:{agency.primaryColor}">
-            ◀ Front
+            ◄ Front
           </button>
         </div>
       </div>
@@ -253,43 +238,53 @@
   .info-value.full { flex: 1; }
   .info-value.mono { font-family: 'Courier New', monospace; font-size: 9px; }
 
+  /* ── Back header ── */
+  .back-header {
+    background: var(--brand-dark) !important;
+    padding: 6px 10px !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+  }
+  .logo-box-sm {
+    width: 28px !important;
+    height: 22px !important;
+    flex-shrink: 0;
+  }
+  .misrep-warning {
+    font-size: 8px;
+    font-weight: 800;
+    color: white;
+    line-height: 1.35;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    flex: 1;
+  }
+
   /* ── Back body ── */
   .back-body { padding: 6px 10px; }
-  .back-section { margin-bottom: 6px; }
-  .back-heading {
+  .symbol-intro {
     font-size: 8px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    color: var(--brand);
-    text-transform: uppercase;
-    border-bottom: 1px solid var(--brand-light, #eee);
-    padding-bottom: 2px;
-    margin-bottom: 3px;
+    font-style: italic;
+    color: #555;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 3px;
   }
-  .back-steps {
-    margin: 0;
-    padding-left: 14px;
-    font-size: 8.5px;
-    line-height: 1.5;
-    color: #222;
-  }
-  .back-steps li { margin-bottom: 1px; }
-  .back-exchange {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 3px 10px;
-    font-size: 8.5px;
-    color: #333;
-  }
-  .back-exchange span::before { content: '✓ '; color: var(--brand); font-weight: 700; }
-  .back-limits {
+  .symbol-grid {
     display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 1px 6px;
-    font-size: 8.5px;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px 8px;
   }
-  .lim-label { font-weight: 700; color: #555; }
-  .lim-val { color: #222; }
+  .sym {
+    font-size: 8.5px;
+    color: #222;
+    line-height: 1.4;
+  }
+  .sym b {
+    color: var(--brand-dark);
+    font-weight: 800;
+    margin-right: 2px;
+  }
 
   /* ── Footer ── */
   .card-footer {

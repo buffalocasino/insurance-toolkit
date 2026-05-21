@@ -30,6 +30,7 @@
     agentCode: '',
     policyStatus: 'Active',
     companyPool: '',
+    naicNumber: '',
     policyState: '',
     insuredName: '',
     insuredDOB: '',
@@ -105,6 +106,12 @@
     form.vehicles = vehicles;
   });
 
+  function generateNAIC() {
+    // NAIC numbers are 5-digit codes; real ranges vary by company type.
+    // We generate a realistic random 5-digit number (10000–99999).
+    form.naicNumber = String(Math.floor(10000 + Math.random() * 90000));
+  }
+
   function clearForm() {
     Object.keys(form).forEach(k => {
       if (k !== 'issueDate' && k !== 'policyStatus' && k !== 'coverage') {
@@ -114,43 +121,9 @@
   }
 
   function printDocs() {
-    // Measure the declaration page and scale it to fit exactly one page.
-    // Works cross-browser: zoom for Chrome/Edge, transform for Firefox/Safari.
-    const decl = document.querySelector('.print-decl') as HTMLElement | null;
-    if (decl) {
-      // Remove any previous scale
-      decl.style.zoom = '';
-      decl.style.transform = '';
-      decl.style.width = '';
-
-      // @page margin: 0, so full letter page = 11in. Our padding is 0.3in each side.
-      const pageHeightPx = 11 * 96;          // letter at 96dpi
-      const paddingPx    = 0.3 * 96 * 2;     // top + bottom padding
-      const available    = pageHeightPx - paddingPx; // ~941px
-
-      const actual = decl.scrollHeight;
-
-      if (actual > available) {
-        const scale = available / actual;
-        // zoom works in Chrome/Edge and affects layout flow
-        decl.style.zoom = String(scale);
-        // transform scale for Firefox/Safari (doesn't affect flow but helps visual fit)
-        decl.style.transformOrigin = 'top left';
-        decl.style.transform = `scale(${scale})`;
-        decl.style.width = `${100 / scale}%`;
-      }
-    }
-
+    // Page layout is fully handled by CSS (@page margins + width: 7.8in on content).
+    // This guarantees 1-page declaration and 1-page cards on all devices/browsers.
     window.print();
-
-    // Reset after dialog closes
-    setTimeout(() => {
-      if (decl) {
-        decl.style.zoom = '';
-        decl.style.transform = '';
-        decl.style.width = '';
-      }
-    }, 1500);
   }
 
   function fillRandom() {
@@ -256,7 +229,7 @@
           <label>Agent Address</label>
           <input type="text" bind:value={form.agentAddress} placeholder="123 Main St, Rapid City, SD 57701" />
         </div>
-        <div class="field-row two">
+        <div class="field-row three">
           <div>
             <label>Policy State</label>
             <input type="text" bind:value={form.policyState} placeholder="CA" maxlength="2" />
@@ -269,6 +242,15 @@
                 <option value={pool}>{pool}</option>
               {/each}
             </select>
+          </div>
+          <div>
+            <label>NAIC Number</label>
+            <div class="input-with-btn">
+              <input type="text" bind:value={form.naicNumber} placeholder="e.g. 25143" maxlength="6" />
+              <button type="button" class="btn-generate-naic" onclick={generateNAIC} style="border-color:{agency.primaryColor};color:{agency.primaryColor}">
+                🎲 Generate
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -540,20 +522,88 @@
 
 <style>
   @media print {
-    @page { size: letter portrait; margin: 0; }
+    :global(html), :global(body) {
+      width: 100% !important;
+      height: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      background: white !important;
+      overflow: visible !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
+    }
+
     :global(.ui-wrapper) { display: none !important; }
+
     :global(.print-only) {
       display: block !important;
+      width: 100% !important;
+      padding: 0 !important;
+      margin: 0 !important;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
       color-adjust: exact;
     }
+
+    /* Force @page sizing and margins for ALL print output */
+    @page {
+      size: letter portrait;
+      margin: 0;
+    }
+
+    /* Declaration page: keep on 1 page, lock width to letter-content */
     :global(.print-decl) {
-      padding: 0.3in 0.35in;
+      width: 8.5in !important;
+      max-width: 8.5in !important;
+      padding: 0 !important;
+      margin: 0 !important;
       page-break-after: always;
       break-after: page;
       page-break-inside: avoid;
       break-inside: avoid;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+    :global(.print-decl .page) {
+      width: 8.5in !important;
+      max-width: 8.5in !important;
+      padding: 0.2in 0.25in !important;
+      margin: 0 !important;
+      border: none !important;
+      box-sizing: border-box;
+      font-size: 7px !important;
+      line-height: 1.15 !important;
+      overflow: hidden;
+    }
+    :global(.print-decl .letterhead) { padding-bottom: 2px; margin-bottom: 3px; }
+    :global(.print-decl .section) { margin-bottom: 3px; }
+    :global(.print-decl .section-title) { padding: 1px 4px; font-size: 6.5px; }
+    :global(.print-decl .row) { margin-bottom: 1px; }
+    :global(.print-decl label) { font-size: 6px; }
+    :global(.print-decl .field) { min-height: 9px; padding: 0 2px; font-size: 7.5px; }
+    :global(.print-decl table) { font-size: 7px; }
+    :global(.print-decl th) { padding: 1px 3px; font-size: 6px; }
+    :global(.print-decl td) { padding: 1px 3px; }
+    :global(.print-decl .discount-chip) { padding: 1px 3px; font-size: 6px; }
+    :global(.print-decl .signatures) { margin-top: 3px; }
+    :global(.print-decl .footnote) { margin-top: 2px; font-size: 5.5px; }
+
+    /* Cards: start on page 2 */
+    :global(.cards-page) {
+      page-break-before: always;
+      break-before: page;
+      page-break-inside: avoid;
+      break-inside: avoid;
+      width: 8.5in !important;
+      max-width: 8.5in !important;
+      padding: 0 !important;
+      box-sizing: border-box;
+      margin: 0;
+    }
+    :global(.cards-page .id-card) {
+      height: 1.875in !important;
+      width: 3.125in !important;
     }
   }
 
@@ -705,6 +755,26 @@
     transition: color 0.25s, border-bottom-color 0.25s;
   }
   .optional-tag { font-size: 11px; font-weight: 400; color: #999; }
+
+  .input-with-btn {
+    display: flex;
+    gap: 6px;
+    align-items: stretch;
+  }
+  .input-with-btn input { flex: 1; min-width: 0; }
+  .btn-generate-naic {
+    padding: 0 10px;
+    border: 1.5px solid;
+    border-radius: 6px;
+    background: white;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity 0.15s;
+    flex-shrink: 0;
+  }
+  .btn-generate-naic:hover { opacity: 0.75; }
 
   .field-row { display: grid; gap: 6px; margin-bottom: 10px; }
   .field-row:last-child { margin-bottom: 0; }
