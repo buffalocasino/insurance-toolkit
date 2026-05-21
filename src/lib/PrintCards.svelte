@@ -863,7 +863,7 @@
 
   /* Checklist */
   .checklist-title {
-    font-size: 5.5px;
+    font-size: 5px;
     font-weight: 900;
     color: var(--brand-dark);
     text-transform: uppercase;
@@ -882,13 +882,13 @@
     gap: 3px;
   }
   .step-num {
-    font-size: 5.5px;
+    font-size: 4.5px;
     font-weight: 900;
     color: white;
     background: var(--brand);
     border-radius: 50%;
-    width: 9px;
-    height: 9px;
+    width: 8px;
+    height: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -897,15 +897,15 @@
     box-sizing: border-box;
   }
   .step-text {
-    font-size: 5.5px;
+    font-size: 5px;
     color: #222;
-    line-height: 1.25;
+    line-height: 1.2;
     font-family: Arial, sans-serif;
   }
 
   /* Legend */
   .legend-title {
-    font-size: 5.5px;
+    font-size: 5px;
     font-weight: 900;
     color: var(--brand-dark);
     text-transform: uppercase;
