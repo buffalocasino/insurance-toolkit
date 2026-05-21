@@ -275,10 +275,9 @@
 
 <style>
   @media print {
-    /* Cross-browser, cross-device: no zoom (Chrome-only), just tight sizing */
     .page {
-      padding: 0.08in 0.12in;
-      font-size: 7.8px;
+      padding: 0;
+      font-size: 8px;
       line-height: 1.2;
       border: none;
       max-width: none;
@@ -289,26 +288,26 @@
       color-adjust: exact;
     }
     .letterhead     { padding-bottom: 3px; margin-bottom: 4px; border-bottom-width: 2px; }
-    .logo-area      { margin-bottom: 3px; gap: 6px; }
-    .logo-area img, .logo-area svg { width: 40px !important; height: 40px !important; }
-    .company-name   { font-size: 7.5px; line-height: 1.2; }
-    .company-name strong { font-size: 10px; }
-    .doc-title      { font-size: 10px; letter-spacing: 1px; padding: 2px 0; margin-top: 2px; }
-    .section        { margin-bottom: 4px; page-break-inside: avoid; break-inside: avoid; }
+    .logo-area      { margin-bottom: 2px; gap: 6px; }
+    .logo-area img, .logo-area svg { width: 34px !important; height: 34px !important; }
+    .company-name   { font-size: 7px; line-height: 1.2; }
+    .company-name strong { font-size: 9.5px; }
+    .doc-title      { font-size: 10px; letter-spacing: 0.8px; padding: 1px 0; margin-top: 2px; }
+    .section        { margin-bottom: 4px; }
     .section-title  { padding: 1px 4px; font-size: 7px; letter-spacing: 0.8px; margin-bottom: 2px; }
     .row            { margin-bottom: 1px; }
     label           { font-size: 6.5px; margin-bottom: 0; letter-spacing: 0.2px; }
-    .field          { min-height: 10px; padding: 0 2px; font-size: 7.8px; }
+    .field          { min-height: 10px; padding: 0 2px; font-size: 8px; }
     .prem .field    { font-size: 9px; border-bottom-width: 1px; }
     table           { font-size: 7.5px; }
     th              { padding: 1px 3px; font-size: 6.5px; }
     td              { padding: 1px 3px; }
     .discounts-grid { gap: 2px; }
     .discount-chip  { padding: 1px 4px; font-size: 7px; }
-    .signatures     { margin-top: 6px; padding-top: 4px; page-break-inside: avoid; break-inside: avoid; }
-    .sig-row        { gap: 12px; }
+    .signatures     { margin-top: 5px; padding-top: 3px; }
+    .sig-row        { gap: 10px; }
     .sig-date       { font-size: 7px; margin-top: 0; }
-    .footnote       { margin-top: 4px; padding-top: 3px; font-size: 6.5px; line-height: 1.3; }
+    .footnote       { margin-top: 3px; padding-top: 2px; font-size: 6.5px; line-height: 1.2; }
   }
   .page {
     background: #fff;

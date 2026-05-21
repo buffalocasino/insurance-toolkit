@@ -114,7 +114,43 @@
   }
 
   function printDocs() {
+    // Measure the declaration page and scale it to fit exactly one page.
+    // Works cross-browser: zoom for Chrome/Edge, transform for Firefox/Safari.
+    const decl = document.querySelector('.print-decl') as HTMLElement | null;
+    if (decl) {
+      // Remove any previous scale
+      decl.style.zoom = '';
+      decl.style.transform = '';
+      decl.style.width = '';
+
+      // @page margin: 0, so full letter page = 11in. Our padding is 0.3in each side.
+      const pageHeightPx = 11 * 96;          // letter at 96dpi
+      const paddingPx    = 0.3 * 96 * 2;     // top + bottom padding
+      const available    = pageHeightPx - paddingPx; // ~941px
+
+      const actual = decl.scrollHeight;
+
+      if (actual > available) {
+        const scale = available / actual;
+        // zoom works in Chrome/Edge and affects layout flow
+        decl.style.zoom = String(scale);
+        // transform scale for Firefox/Safari (doesn't affect flow but helps visual fit)
+        decl.style.transformOrigin = 'top left';
+        decl.style.transform = `scale(${scale})`;
+        decl.style.width = `${100 / scale}%`;
+      }
+    }
+
     window.print();
+
+    // Reset after dialog closes
+    setTimeout(() => {
+      if (decl) {
+        decl.style.zoom = '';
+        decl.style.transform = '';
+        decl.style.width = '';
+      }
+    }, 1500);
   }
 
   function fillRandom() {

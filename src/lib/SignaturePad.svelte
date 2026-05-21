@@ -249,13 +249,16 @@
 
   @media print {
     .sig-clear, .sig-hint, .sig-actions, .font-picker { display: none !important; }
+    .sig-pad-wrap { width: 100%; }
     .sig-canvas-area {
       border: none;
       border-bottom: 1px solid #333;
       border-radius: 0;
       background: white;
-      height: 48px !important;
+      height: 32px !important;
+      min-height: 0 !important;
     }
-    .sig-label-txt { font-size: 8px; }
+    .sig-footer { margin-top: 1px; }
+    .sig-label-txt { font-size: 7px; }
   }
 </style>
