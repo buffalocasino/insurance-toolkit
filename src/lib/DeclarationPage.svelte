@@ -266,11 +266,11 @@
     <div class="sig-row">
       <div class="sig-box">
         <SignaturePad label="Authorized Representative / Agent Signature" autoName={data.agentName} />
-        <div class="sig-date">Date: {today}</div>
+        <div class="sig-date">Date: {fmtDate(data.issueDate)}</div>
       </div>
       <div class="sig-box">
         <SignaturePad label="Insured Signature (Acknowledgment)" autoName={data.insuredName} />
-        <div class="sig-date">Date: {today}</div>
+        <div class="sig-date">Date: {fmtDate(data.issueDate)}</div>
       </div>
     </div>
   </div>
